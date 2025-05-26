@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Register Student</title>
+<style>
+    body {
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #eceff1 0%, #b0bec5 100%);
+      color: #37474f;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    h2 {
+      font-weight: 600;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: #263238;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      letter-spacing: 0.5px;
+      animation: slideIn 1s ease-out;
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 420px;
+      color: #37474f;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #37474f;
+    }
+
+    input[type="text"],
+    input[type="file"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      background-color: #ffffff;
+      color: #37474f;
+      box-sizing: border-box;
+      outline: none;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="file"]:focus {
+      box-shadow: 0 0 8px rgba(96, 125, 139, 0.5);
+    }
+
+    button {
+      background: linear-gradient(45deg, #78909c, #90a4ae);
+      color: #ffffff;
+      font-size: 1.2rem;
+      font-weight: 500;
+      padding: 15px;
+      border: none;
+      border-radius: 50px;
+      width: 100%;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      text-transform: uppercase;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #607d8b, #78909c);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .back-link {
+      margin-top: 25px;
+      display: inline-block;
+      color: #37474f;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #546e7a;
+    }
+
+    ul.messages {
+      margin-top: 25px;
+      list-style-type: none;
+      padding: 0;
+      color: #455a64;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    ul.messages li {
+      margin-bottom: 8px;
+      background: rgba(38, 50, 56, 0.1);
+      padding: 10px 15px;
+      border-radius: 10px;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      0% { transform: translateY(-50px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 500px) {
+      h2 {
+        font-size: 2rem;
+        text-align: center;
+      }
+      form {
+        padding: 25px 20px;
+      }
+    }
+</style>
+</head>
+<body>
+  <h2>Register New Student</h2>
+  <form method="POST" action="{{ url_for('register') }}" enctype="multipart/form-data" novalidate>
+    <label for="name">Student Name:</label>
+    <input type="text" id="name" name="name" required placeholder="Enter student name" />
+
+    <label for="image">Upload Image:</label>
+    <input type="file" id="image" name="image" accept="image/*" required />
+
+    <button type="submit">Register Student</button>
+  </form>
+
+  <a href="{{ url_for('home') }}" class="back-link">← Back to Home</a>
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="messages">
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+</body>
+</html>

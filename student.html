@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Student Attendance</title>
+<style>
+  /* Your existing CSS here */
+   body {
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #eceff1 0%, #b0bec5 100%);
+      color: #37474f;
+      text-align: center;
+      padding: 50px;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      font-weight: 600;
+      color: #263238;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      letter-spacing: 0.5px;
+      animation: slideIn 1s ease-out;
+    }
+
+    form {
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    input[type="text"], select {
+      padding: 10px 15px;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      border: none;
+      width: 300px;
+      max-width: 80vw;
+      background-color: #ffffff;
+      color: #37474f;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+
+    input[type="text"]:focus, select:focus {
+      outline: none;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    button {
+      padding: 12px 25px;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      border: none;
+      background: linear-gradient(45deg, #78909c, #90a4ae);
+      color: #ffffff;
+      font-weight: 500;
+      cursor: pointer;
+      text-transform: uppercase;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #607d8b, #78909c);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    table {
+      margin: 0 auto;
+      border-collapse: collapse;
+      width: 80%;
+      max-width: 600px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 12px 20px;
+      border-bottom: 1px solid rgba(55, 71, 79, 0.3);
+      font-size: 1.1rem;
+      color: #37474f;
+    }
+
+    th {
+      background-color: rgba(38, 50, 56, 0.2);
+      font-weight: 600;
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 40px;
+      font-size: 1.2rem;
+      color: #37474f;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #546e7a;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      0% { transform: translateY(-50px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+</style>
+</head>
+<body>
+  <h2>Check Your Attendance</h2>
+  <form method="POST" action="{{ url_for('student') }}">
+    <input type="text" name="student_name" placeholder="Enter your full name" required value="{{ student_name|default('') }}" />
+    <select name="subject" required>
+      <option value="">-- Select Subject --</option>
+      <option value="AI" {% if subject == 'AI' %}selected{% endif %}>AI</option>
+      <option value="DSA" {% if subject == 'DSA' %}selected{% endif %}>DSA</option>
+      <option value="DAA" {% if subject == 'DAA' %}selected{% endif %}>DAA</option>
+      <option value="MAD" {% if subject == 'MAD' %}selected{% endif %}>MAD</option>
+    </select>
+    <button type="submit">View Attendance</button>
+  </form>
+
+  {% if attendance_records %}
+    <h3>Attendance for subject: {{ subject }}</h3>
+    <table>
+      <thead>
+        <tr><th>Date & Time</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        {% for record in attendance_records %}
+          <tr><td>{{ record }}</td><td>Present</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% elif attendance_checked %}
+    <p>No attendance records found for "{{ student_name }}" in subject "{{ subject }}"</p>
+  {% endif %}
+
+  <a href="{{ url_for('home') }}" class="back-link">← Back to Home</a>
+</body>
+</html>

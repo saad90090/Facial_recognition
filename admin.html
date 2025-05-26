@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin Dashboard</title>
+<style>
+    body {
+      font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #eceff1 0%, #b0bec5 100%);
+      color: #37474f;
+      text-align: center;
+      padding: 50px;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      font-weight: 600;
+      color: #263238;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      letter-spacing: 0.5px;
+      animation: slideIn 1s ease-out;
+    }
+
+    .btn {
+      font-size: 1.25rem;
+      padding: 16px 32px;
+      margin: 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: linear-gradient(45deg, #78909c, #90a4ae);
+      color: #ffffff;
+      font-weight: 500;
+      text-transform: uppercase;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: linear-gradient(45deg, #607d8b, #78909c);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 50px;
+      font-size: 1.2rem;
+      color: #37474f;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #546e7a;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      0% { transform: translateY(-50px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+</style>
+</head>
+<body>
+  <h2>Admin Dashboard</h2>
+  <a href="{{ url_for('register') }}" class="btn">Register Student</a>
+  <a href="{{ url_for('attendance') }}" class="btn">Mark Attendance</a>
+  <a href="{{ url_for('home') }}" class="back-link">← Back to Home</a>
+</body>
+</html>
